@@ -12,7 +12,7 @@ class Controller(object):
         # TODO: Implement
         self.yaw_controller = YawController(wheel_base, steer_ratio, 0.1, max_lat_accel, max_steer_angle)
         
-        kp = 0.3
+        kp = 0.2
         ki = 0.1
         kd = 0.0
         mn = 0.0 # Min throttle value
@@ -39,7 +39,14 @@ class Controller(object):
             self.throttle_controller.reset()
             return 0., 0., 0.
         
-#         current_vel = self.vel_lpf.filt(current_vel)
+        current_vel = self.vel_lpf.filt(current_vel)
+
+#         rospy.logwarn("--------------PRINTING CONTROLLER---------------")
+#         rospy.logwarn("Angular vel: {}".format(angular_vel))
+#         rospy.logwarn("Target angular velocity: {}".format(angular_vel))
+#         rospy.logwarn("Current velocity: {}".format(current_vel))
+#         rospy.logwarn("Target velocity: {}".format(linear_vel))
+#         rospy.logwarn("Filtered velocity: {}".format(self.vel_lpf.get()))
         
         steering = self.yaw_controller.get_steering(linear_vel, angular_vel, current_vel)
         
