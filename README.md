@@ -1,3 +1,32 @@
+# The Project
+This is the capstone project for Udacity's Self Driving Car Engineer Nanodegree. The project is a culmination of other projects to integrate into a self driving car.
+
+## Contributors
+
+Timothy Ta timothyta12@gmail.com
+
+### The Parts
+To build an entire system to power a self driving car, there needs to be a unifying element between all the components. Here the components consist of ROS Nodes which are able to run independently and communicate with each other. 
+
+* Waypoint Updater
+* Controller
+* Traffic Light Detection
+
+### Waypoint Updater
+The goal of the updater is to calculate the waypoints the car needs to take. The car is initally given a set of initial waypoints to work with. Only a small subset is used at anytime. The subset is created based off the current position of the car.
+The final waypoint output depends on the actions of the car. For this project the main focus was slowing down when there is a traffic light. When the car senses there is a red light, the car calculates a trajectory to slow down the car.  
+This updater can later be extended to include lane shifting and possible obstacle avoidance.
+
+### Controller
+The three main inputs of a car are steering, throttle, and braking. These inputs all depend on what the car is supposed to do. Using the given waypoints, a desired set of velocities are calculated. Since the car cannot instantaneously accelerate, the controller must adjust itself to match these velocities. Several models are used for controlling these componenents.  
+The throttle is controlled using a PID controller to provide smooth acceleration.  
+The steering is controlled by calculating the how to match the correct angle without oversteering.
+The brakes are applied exclusively from the throttle. Brakes should only be applied when there is no throttle and the car wants to slow down. This is done by brute calculation with the car's current position and the desired stopping location.
+
+### Traffic Light Detection
+Currently, the simulator provides the position and states of the traffic lights. Using this information, if the light is red, the car will calculate a deccelerating trajectory to stop near the line. If the light is green the car will continue normally.  
+The next goal of this part is to automate the detection of traffic lights using a camera. This can be achieved through a CNN to give a classification of traffic lights.
+
 This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
 
 Please use **one** of the two installation options, either native **or** docker installation.
